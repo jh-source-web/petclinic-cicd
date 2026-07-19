@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petclinic
+  namespace: petclinic
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: petclinic
+
+  template:
+    metadata:
+      labels:
+        app: petclinic
+
+    spec:
+      containers:
+      - name: petclinic
+        image: 450444046629.dkr.ecr.ap-northeast-2.amazonaws.com/user14-petclinic:v2-7
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+
+        env:
+        - name: MYSQL_URL
+          value: jdbc:mysql://user14-db-mysql.cxsq4q6qikia.ap-northeast-2.rds.amazonaws.com:3306/petclinic
+
+        - name: MYSQL_USER
+          value: admin
+
+        - name: MYSQL_PASSWORD
+          value: admin123!
